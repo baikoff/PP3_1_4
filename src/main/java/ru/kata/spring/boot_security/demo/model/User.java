@@ -17,7 +17,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column
-    private String name; // уникальное значение
+    private String name;
 
     @Column(name = "surname")
     private String surname;
