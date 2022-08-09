@@ -1,34 +1,54 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.dao.RoleDAO;
 import ru.kata.spring.boot_security.demo.dao.UserDAO;
+import ru.kata.spring.boot_security.demo.model.User;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserService {
 
-    private final UserDAO userDAO;
 
-    public UserServiceImpl(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    private final UserDAO userDao;
+    private final RoleDAO roleDao;
+
+    public UserServiceImpl(UserDAO userDao, RoleDAO roleDao) {
+        this.userDao = userDao;
+        this.roleDao = roleDao;
     }
 
     @Transactional
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        ru.kata.spring.boot_security.demo.model.User user = userDAO.getUserByName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Пользователь не найден");
-        } else {
-            return new User(user.getUsername(), user.getPassword(), user.getAuthorities());
-        }
-
-
+    public void createUser(User user) {
+        userDao.save(user);
     }
+
+    @Transactional
+    public User readUser(Long id) {
+        return userDao.findById(id).get();
+    }
+
+    @Transactional
+    public User updateUser(User user) {
+        return userDao.save(user);
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        userDao.deleteById(id);
+    }
+
+    @Transactional
+    public User getUserByName(String name) {
+        return userDao.getUserByName(name);
+    }
+
+    @Transactional
+    public List<User> allUsers() {
+        return userDao.findAll();
+    }
+
 }
+

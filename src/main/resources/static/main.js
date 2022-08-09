@@ -1,5 +1,4 @@
 const usersURL = 'http://localhost:8081/users'
-
 getAllUsers()
 
 function getRequest(url) {

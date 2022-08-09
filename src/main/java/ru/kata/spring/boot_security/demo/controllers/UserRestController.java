@@ -2,11 +2,10 @@ package ru.kata.spring.boot_security.demo.controllers;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.util.List;
 
@@ -16,20 +15,20 @@ import java.util.List;
 public class UserRestController {
 
 
-    private final UserService service;
+    private final UserServiceImpl service;
 
-    public UserRestController(UserService service) {
+    public UserRestController(UserServiceImpl service) {
         this.service = service;
     }
 
     @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return service.allUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(service.allUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public User getOneUser(@PathVariable("id") Long id) {
-        return service.readUser(id);
+    public ResponseEntity<User> getOneUser(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(service.readUser(id), HttpStatus.OK);
     }
 
     @PostMapping("/users")
@@ -38,18 +37,18 @@ public class UserRestController {
         return new ResponseEntity<>(service.getUserByName(user.getName()), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users"
-            , produces = MediaType.ALL_VALUE
-            , method = RequestMethod.PUT)
+    @PutMapping("/users")
     public ResponseEntity<User> changeUser(@RequestBody User user) {
         service.updateUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<User> changeUser(@PathVariable("id") Long id) {
+    public ResponseEntity<Long> changeUser(@PathVariable("id") Long id) {
         service.deleteUser(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
-    
+
+
 }

@@ -1,59 +1,22 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dao.RoleDAO;
-import ru.kata.spring.boot_security.demo.dao.UserDAO;
+
 import ru.kata.spring.boot_security.demo.model.User;
 
-import java.security.Principal;
 import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
+    public void createUser(User user);
 
-    private final UserDAO userDao;
-    private final RoleDAO roleDao;
+    public User readUser(Long id);
 
-    public UserService(UserDAO userDao, RoleDAO roleDao) {
-        this.userDao = userDao;
-        this.roleDao = roleDao;
-    }
+    public User updateUser(User user);
 
-    @Transactional
-    public void createUser(User user) {
-        userDao.createUser(user);
-    }
+    public void deleteUser(Long id);
 
-    @Transactional
-    public User readUser(Long id) {
-        return userDao.readUser(id);
-    }
+    public User getUserByName(String name);
 
-    @Transactional
-    public void updateUser(User user) {
-        userDao.updateUser(user);
-    }
+    public List<User> allUsers();
 
-    @Transactional
-    public void deleteUser(Long id) {
-        userDao.deleteUser(id);
-    }
-
-    @Transactional
-    public User getUserByName(String name) {
-        return userDao.getUserByName(name);
-    }
-
-    @Transactional
-    public List<User> allUsers() {
-        return userDao.allUsers();
-    }
-
-    @Transactional
-    public boolean isAllowed(Long id, Principal principal) {
-        return userDao.isAllowed(id, principal);
-    }
 }
-
