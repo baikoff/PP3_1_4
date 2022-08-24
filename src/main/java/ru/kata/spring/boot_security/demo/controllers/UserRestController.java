@@ -45,9 +45,9 @@ public class UserRestController {
 
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<Long> changeUser(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         service.deleteUser(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
