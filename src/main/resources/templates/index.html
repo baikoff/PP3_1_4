@@ -19,14 +19,14 @@
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <span class="navbar-brand" th:text="${user.getEmail()}"></span>
+<!--        <span class="navbar-brand" th:text="${user.getEmail()}"></span>-->
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <span class="navbar-brand">with roles:</span>
                 </li>
                 <li class="nav-item">
-                    <span class="navbar-brand" th:text="${user.rolesToString()}"></span>
+<!--                    <span class="navbar-brand" th:text="${user.rolesToString()}"></span>-->
                 </li>
             </ul>
         </div>
@@ -41,7 +41,7 @@
         <nav class="bg-white col-2 content-center vh-100">
             <div class="av flex-column nav-pills" id="v-pills-tab"
                  role="tablist" aria-orientation="vertical">
-                <a sec:authorize="hasRole('ADMIN')" class="nav-link  my-3 text-center" id="v-pills-home-tab" th:href="@{/admin/admin_panel}"
+                <a sec:authorize="hasRole('ADMIN')" class="nav-link  my-3 text-center" id="v-pills-home-tab" th:href="@{/admin/admin_panel.html}"
                    type="button" role="tab" aria-controls="v-pills-home" aria-selected="false">Admin
                 </a>
                 <a class="nav-link active text-center my-3" type="button" role="link"
@@ -77,14 +77,14 @@
                                     <th>Age</th>
                                     <th>Role</th>
                                 </tr>
-                                <tr th:object="${user}">
-                                    <td th:text="${user.getId()}"></td>
-                                    <td th:text="${user.getName()}"></td>
-                                    <td th:text="${user.getSurname()}"></td>
-                                    <td th:text="${user.getEmail()}"></td>
-                                    <td th:text="${user.getAge()}"></td>
-                                    <td th:text="${user.rolesToString()}"></td>
-                                </tr>
+<!--                                <tr th:object="${user}">-->
+<!--                                    <td th:text="${user.getId()}"></td>-->
+<!--                                    <td th:text="${user.getName()}"></td>-->
+<!--                                    <td th:text="${user.getSurname()}"></td>-->
+<!--                                    <td th:text="${user.getEmail()}"></td>-->
+<!--                                    <td th:text="${user.getAge()}"></td>-->
+<!--                                    <td th:text="${user.rolesToString()}"></td>-->
+<!--                                </tr>-->
                             </table>
                         </div>
                     </div>

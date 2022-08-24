@@ -37,10 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login");//Путь к отправке формы на странице входа
         http
                 .authorizeRequests()// Метод объекта, возвращаемый методом, чтобы настроить детали безопасности уровня запроса
-                .antMatchers("/login").anonymous()//Это antMatchers()HTTP-метод Springboot, используемый для настройки URL-адресов, с которых система безопасности приложения Springboot должна разрешать запросы на основе ролей пользователя.
+//                .antMatchers("/login").anonymous()//Это antMatchers()HTTP-метод Springboot, используемый для настройки URL-адресов, с которых система безопасности приложения Springboot должна разрешать запросы на основе ролей пользователя.
                 .antMatchers("/").authenticated()//Этот antmatchers()метод представляет собой перегруженный метод, который получает как методы HTTP-запроса, так и определенные URL-адреса в качестве своих аргументов.
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .and().formLogin()
                 .and().csrf().disable();//Закройте междоменные запросы. Неправильная настройка, может продолжать появляться403(Вне зависимости от того, есть ли у вас права доступа)
 
     }

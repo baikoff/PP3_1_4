@@ -2,7 +2,6 @@ package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dao.RoleDAO;
 import ru.kata.spring.boot_security.demo.dao.UserDAO;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -13,11 +12,9 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserDAO userDao;
-    private final RoleDAO roleDao;
 
-    public UserServiceImpl(UserDAO userDao, RoleDAO roleDao) {
+    public UserServiceImpl(UserDAO userDao) {
         this.userDao = userDao;
-        this.roleDao = roleDao;
     }
 
     @Transactional

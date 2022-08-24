@@ -93,13 +93,6 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -108,6 +101,10 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -141,10 +138,6 @@ public class User implements UserDetails {
 
     public void setRoleInd(Long roleInd) {
         this.roleInd = roleInd;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Set<Role> getRoles() {
