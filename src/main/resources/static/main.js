@@ -1,5 +1,8 @@
 const usersURL = 'http://localhost:8081/users'
+const currentUserInfo = 'http://localhost:8081/users/current'
+
 getAllUsers()
+getCurrentUserInfo()
 
 function getRequest(url) {
 
@@ -53,6 +56,34 @@ function getAllUsers() {
         .catch(err => alert('не удалось получить список user-ов' + err))
     // alert('@            DONE          @')
 }
+
+function getCurrentUserInfo() {
+    getRequest(currentUserInfo)
+        .then(user => {
+            console.log(user)
+            fillNavbar(user)
+            $('#CurrentUserTable').append(createRow(user))
+        })
+}
+
+function fillNavbar(user) {
+    let userRoles = ''
+    switch (user.roleInd) {
+        case 1 :
+            userRoles = "[ADMIN]"
+            break;
+        case 2 :
+            userRoles = "[USER]"
+            break;
+        case 3 :
+            userRoles = "[ADMIN, USER]"
+            break;
+    }
+    $('#navbarMail').text(user.email)
+    $('#navbarRoles').text(userRoles)
+}
+
+
 
 function createRow(user) {
     // console.log('try to create and append rows')
@@ -125,6 +156,7 @@ $(document).on('click', '.btn-group .btn-info', function (event) {
     let age = button.data('edAge')
     let roles = button.data('edRoles')
 
+
     let myModal = $('#editModal')
     $('.modal-title').text('Edit user with ID = ' + id)
     $('#editId').val(id)
@@ -174,6 +206,7 @@ $(document).on('click', '.btn-group .btn-danger', function (event) {
 $(document).on('click', '#editSubmit', async (event) => {
     event.preventDefault();
     let userEditId = $('#editId').val();
+    let role = $('#editRoles').val()
     let editUser = {
         name: $('#editName').val(),
         id: $('#editId').val(),
@@ -181,11 +214,11 @@ $(document).on('click', '#editSubmit', async (event) => {
         surname: $('#editSurname').val(),
         email: $('#editEmail').val(),
         password: $('#editPassword').val(),
-        roleInd: $('#editRoles').val()
+        roleInd: role[0]
     }
     console.log(editUser)
 
-    await sendRequest('PUT', usersURL, editUser).then(data => {
+    await sendRequest('PATCH', usersURL, editUser).then(data => {
         let newRow = createRow(data)
         console.log(data)
         //console.log("newRow: " + newRow)
@@ -232,7 +265,7 @@ $(document).on('click', '#saveButton', function (event) {
         password: pass.val(),
         email: email.val(),
         age: age.val(),
-        roleInd: roles.val()
+        roleInd: roles.val()[0]
     }
 
     console.log(newUser);
@@ -250,6 +283,4 @@ $(document).on('click', '#saveButton', function (event) {
     roles.val(2)
 
     $('#nav-home-tab').tab('show');
-
-
 })

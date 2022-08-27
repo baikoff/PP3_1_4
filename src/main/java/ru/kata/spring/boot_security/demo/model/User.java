@@ -34,8 +34,6 @@ public class User implements UserDetails {
     @Column
     private Long roleInd;
 
-//    @Transient
-//    private String passwordConfirm;
 
     @ManyToMany
     @JoinTable(name = "users_roles",

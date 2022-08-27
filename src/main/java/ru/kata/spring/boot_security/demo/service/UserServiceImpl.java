@@ -12,13 +12,16 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserDAO userDao;
+    private final RoleService roleService;
 
-    public UserServiceImpl(UserDAO userDao) {
+    public UserServiceImpl(UserDAO userDao, RoleService roleService) {
         this.userDao = userDao;
+        this.roleService = roleService;
     }
 
     @Transactional
     public void createUser(User user) {
+        user.setRoles(roleService.saveRoles(user.getRoleInd()));
         userDao.save(user);
     }
 
@@ -46,6 +49,7 @@ public class UserServiceImpl implements UserService {
     public List<User> allUsers() {
         return userDao.findAll();
     }
+
 
 }
 
